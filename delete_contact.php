@@ -3,8 +3,7 @@
 
     // get data from the form  
     $contact_id = filter_input(INPUT_POST, 'contact_id', FILTER_VALIDATE_INT);
-    echo $contact_id;
-    die();
+    
 
     // code to delete contact from database
     // validate inputs
