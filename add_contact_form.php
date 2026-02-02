@@ -42,8 +42,7 @@
                     <label>Date of Birth:</label>
                     <input type="date" name="dob" /><br />
 
-                    <label>Notes:</label>
-                    <textarea name="notes" rows="4" cols="50"></textarea><br />
+                    
 
                 </div>
 

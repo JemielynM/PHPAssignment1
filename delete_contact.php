@@ -1,0 +1,27 @@
+<?php
+    require_once("database.php");
+
+    // get data from the form  
+    $contact_id = filter_input(INPUT_POST, 'contact_id', FILTER_VALIDATE_INT);
+    echo $contact_id;
+    die();
+
+    // code to delete contact from database
+    // validate inputs
+
+    if ($contact_id != false) {
+            // delete the contact from the database
+        $query = 'DELETE FROM contacts WHERE contactID = :contact_id';
+        
+        $statement = $db->prepare($query);
+        $statement->bindValue(':contact_id', $contact_id);
+
+        $statement->execute();
+        $statement->closeCursor();
+    }
+
+    // reload the index page
+    $url = "index.php";
+    header("Location: " . $url);
+    die();
+?>      
