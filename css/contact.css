@@ -31,6 +31,32 @@ th, td {
   vertical-align: middle;
 }
 
+label {
+  width: 10em;
+  float: left;
+  padding-right: 1em;
+  padding-bottom: .5em;
+}
+
+#data input {
+  float: left;
+  width: 15em;
+  margin-bottom: .5em;
+}
+
+#data span {
+  padding: .25em;
+}
+
+buttons input {
+  float: left;
+  margin-bottom: .5em;
+}
+
+br {
+  clear: left;
+}
+
 h2 {
   text-align: center;
 }

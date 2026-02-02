@@ -34,6 +34,7 @@
           <th>Status</th>
           <th>Date of Birth</th>
         </tr>
+
         <?php foreach ($contacts as $contact) : ?>
         <tr>
           <td><?php echo htmlspecialchars($contact['firstname']); ?></td>
@@ -46,6 +47,9 @@
         <?php endforeach; ?>  
 
      </table>
+
+     <p><a href="add_contact_form.php">Add Contact</a></p>
+     
     </main>
 
     <?php include("footer.php") ?>
