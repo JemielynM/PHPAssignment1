@@ -46,7 +46,7 @@
 
                 <div id="buttons">
                     <label>&nbsp;</label>
-                    <input type="submit" value="Add Contact" /><br />   
+                    <input type="submit" value="Save Contact" /><br />   
                 </div>
            </form>
            
