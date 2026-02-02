@@ -24,10 +24,10 @@
                 <div id="data">
 
                     <label>First Name:</label>
-                    <input type="text" name="firstname" /><br />
+                    <input type="text" name="firstName" /><br />
 
                     <label>Last Name:</label>
-                    <input type="text" name="lastname" /><br />
+                    <input type="text" name="lastName" /><br />
 
                     <label>Email Address:</label>
                     <input type="text" name="emailAddress" /><br />
@@ -41,6 +41,9 @@
 
                     <label>Date of Birth:</label>
                     <input type="date" name="dob" /><br />
+
+                    <label>Notes:</label>
+                    <textarea name="notes" rows="4" cols="50"></textarea><br />
 
                 </div>
 
