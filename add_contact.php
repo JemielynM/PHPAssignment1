@@ -40,10 +40,13 @@
            die();
         }
 
-    // Add the contact
+    $image_name = ''; // default empty
 
-    $query = 'INSERT INTO contacts (firstName, lastName, emailAddress, phoneNumber, status, dob)
-        VALUES (:firstName, :lastName, :emailAddress, :phoneNumber, :status, :dob)';
+    // ******** More Code to come for Image here ********
+    // Add Contact
+
+    $query = 'INSERT INTO contacts (firstName, lastName, emailAddress, phoneNumber, status, dob, imageName)
+        VALUES (:firstName, :lastName, :emailAddress, :phoneNumber, :status, :dob, :imageName)';
 
     $statement = $db->prepare($query);
     $statement->bindValue(':firstName', $first_name);
@@ -52,6 +55,7 @@
     $statement->bindValue(':phoneNumber', $phone_number);
     $statement->bindValue(':status', $status);
     $statement->bindValue(':dob', $dob);
+    $statement->bindValue(':imageName', $image_name);
     $statement->execute();
     $statement->closeCursor();
 
