@@ -42,6 +42,9 @@
                     <label>Date of Birth:</label>
                     <input type="date" name="dob" /><br />
 
+                    <label>Upload Image:</label>
+                    <input type="file" name="file1" /><br />
+
                     
 
                 </div>

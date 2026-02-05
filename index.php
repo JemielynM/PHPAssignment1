@@ -33,6 +33,7 @@
           <th>Phone Number</th>
           <th>Status</th>
           <th>Date of Birth</th>
+          <th>Photo</th>
           <th>&nbsp;</th> <!-- for update -->
           <th>&nbsp;</th> <!-- for delete -->
         </tr>
@@ -45,6 +46,7 @@
            <td><?php echo htmlspecialchars($contact['phoneNumber']); ?></td>
            <td><?php echo htmlspecialchars($contact['status']); ?></td>
            <td><?php echo htmlspecialchars($contact['dob']); ?></td>
+           <td></td>
            <td> 
               <form action="update_contact_form.php" method="post">
                   <input type="hidden" name="contact_id" value="<?php echo $contact['contactID']; ?>" />
