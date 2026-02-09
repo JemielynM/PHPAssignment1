@@ -3,7 +3,7 @@
  require("database.php");
 
  $queryContacts = '
-    SELECT contactID, firstName, lastName, emailAddress, phoneNumber, status, dob FROM contacts';
+    SELECT contactID, firstName, lastName, emailAddress, phoneNumber, status, dob, imageName FROM contacts';
 
   $statement = $db->prepare($queryContacts);  
   $statement->execute();
@@ -46,7 +46,10 @@
            <td><?php echo htmlspecialchars($contact['phoneNumber']); ?></td>
            <td><?php echo htmlspecialchars($contact['status']); ?></td>
            <td><?php echo htmlspecialchars($contact['dob']); ?></td>
-           <td></td>
+           <td> 
+             <img src="<?php echo htmlspecialchars('./images/' .$contact['imageName']); ?>"
+               alt="<?php echo htmlspecialchars($contact['firstName'] . ' ' . $contact['lastName']); ?>" /> 
+           </td>
            <td> 
               <form action="update_contact_form.php" method="post">
                   <input type="hidden" name="contact_id" value="<?php echo $contact['contactID']; ?>" />

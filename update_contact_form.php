@@ -5,7 +5,7 @@
     $contact_id = filter_input(INPUT_POST, 'contact_id', FILTER_VALIDATE_INT);
     
     $queryContacts = '
-      SELECT contactID, firstName, lastName, emailAddress, phoneNumber, status, dob FROM contacts WHERE contactID = :contact_id';
+      SELECT contactID, firstName, lastName, emailAddress, phoneNumber, status, dob, imageName FROM contacts WHERE contactID = :contact_id';
 
     $statement = $db->prepare($queryContacts);  
     $statement->bindValue(':contact_id', $contact_id);
@@ -51,7 +51,15 @@
 
                     <label>Date of Birth:</label>
                     <input type="date" name="dob" value="<?php echo $contact['dob']; ?>" /><br />
-                    
+
+                    <?php if (!empty($contact['imageName'])): ?>
+                        <label>Current Image:</label>
+                        <img src="images/<?php echo htmlspecialchars($contact['imageName']); ?>" height="100"><br />  
+                    <?php endif; ?>
+
+                    <label>Upload New Image:</label>
+                    <input type="file" name="file1" /><br />
+                        
 
                 </div>
 

@@ -7,11 +7,10 @@
     $phone_number = filter_input(INPUT_POST, 'phoneNumber');
     $status = filter_input(INPUT_POST, 'status');
     $dob = filter_input(INPUT_POST, 'dob');
-    $image = $_FILES['image'];
-   
-
-    require_once("database.php");
-    require_once("image_util.php");
+    $image = $_FILES['file1'];
+    
+    require_once('database.php');
+    require_once('image_util.php');
 
     $base_dir = 'images/';
 
@@ -33,7 +32,8 @@
         }
     }   
 
-    if ($first_name === null || $last_name === null || $email_address === null || $phone_number === null || $dob === null) {
+    if ($first_name === null || $last_name === null || $email_address === null || 
+        $phone_number === null || $dob === null) {
            $_SESSION["add_error"] = "Invalid contact data. Check all fields and try again.";
            $url = "error.php";
            header("Location: " . $url);
@@ -42,7 +42,33 @@
 
     $image_name = ''; // default empty
 
-    // ******** More Code to come for Image here ********
+    // ******** Image Upload********
+
+    if ($image && $image['error'] == UPLOAD_ERR_OK) {
+        // process new image
+        $original_filename = basename($image['name']);
+        $upload_path = $base_dir . $original_filename;
+        move_uploaded_file($image['tmp_name'], $upload_path);
+
+        process_image($base_dir, $original_filename);
+
+        // save _100 versoin in DB
+        $dot_position = strpos($original_filename, '.');
+        $name_100 = substr($original_filename, 0, $dot_position) . '_100' . substr($original_filename, $dot_position);
+        $image_name = $name_100;
+
+    }
+    else {
+        // Use placeholder
+        $placeholder = 'placeholder.jpg';
+        $placeholder_100 = 'placeholder_100.jpg';
+        $placeholder_400 = 'placeholder_400.jpg';
+
+        if (!file_exists($base_dir . $placeholder_100) || !file_exists($base_dir . $placeholder_400)) {
+            process_image($base_dir, $placeholder);
+        }
+        $image_name = $placeholder_100;
+    }
     // Add Contact
 
     $query = 'INSERT INTO contacts (firstName, lastName, emailAddress, phoneNumber, status, dob, imageName)
