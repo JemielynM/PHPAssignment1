@@ -7,6 +7,7 @@
     $phone_number = filter_input(INPUT_POST, 'phoneNumber');
     $status = filter_input(INPUT_POST, 'status');
     $dob = filter_input(INPUT_POST, 'dob');
+    $type_id = filter_input(INPUT_POST, 'type_id', FILTER_VALIDATE_INT);
     $image = $_FILES['file1'];
     
     require_once('database.php');
@@ -32,8 +33,8 @@
         }
     }   
 
-    if ($first_name === null || $last_name === null || $email_address === null || 
-        $phone_number === null || $dob === null) {
+    if ($first_name == null || $last_name == null || $email_address == null || 
+        $phone_number == null || $dob == null || $type_id == null) {
            $_SESSION["add_error"] = "Invalid contact data. Check all fields and try again.";
            $url = "error.php";
            header("Location: " . $url);
@@ -71,8 +72,8 @@
     }
     // Add Contact
 
-    $query = 'INSERT INTO contacts (firstName, lastName, emailAddress, phoneNumber, status, dob, imageName)
-        VALUES (:firstName, :lastName, :emailAddress, :phoneNumber, :status, :dob, :imageName)';
+    $query = 'INSERT INTO contacts (firstName, lastName, emailAddress, phoneNumber, status, dob, typeID, imageName)
+        VALUES (:firstName, :lastName, :emailAddress, :phoneNumber, :status, :dob, :typeID, :imageName)';
 
     $statement = $db->prepare($query);
     $statement->bindValue(':firstName', $first_name);
@@ -81,6 +82,7 @@
     $statement->bindValue(':phoneNumber', $phone_number);
     $statement->bindValue(':status', $status);
     $statement->bindValue(':dob', $dob);
+    $statement->bindValue(':typeID', $type_id);
     $statement->bindValue(':imageName', $image_name);
     $statement->execute();
     $statement->closeCursor();

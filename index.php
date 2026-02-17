@@ -3,7 +3,9 @@
  require("database.php");
 
  $queryContacts = '
-    SELECT contactID, firstName, lastName, emailAddress, phoneNumber, status, dob, imageName FROM contacts';
+    SELECT c.contactID, c.firstName, c.lastName, c.emailAddress, c.phoneNumber, c.status, c.dob, c.imageName, c.typeID, t.contactType
+     FROM contacts c 
+     LEFT JOIN types t ON c.typeID = t.typeID';
 
   $statement = $db->prepare($queryContacts);  
   $statement->execute();
@@ -33,6 +35,7 @@
           <th>Phone Number</th>
           <th>Status</th>
           <th>Date of Birth</th>
+          <th>Contact Type</th>
           <th>Photo</th>
           <th>&nbsp;</th> <!-- for update -->
           <th>&nbsp;</th> <!-- for delete -->
@@ -46,6 +49,7 @@
            <td><?php echo htmlspecialchars($contact['phoneNumber']); ?></td>
            <td><?php echo htmlspecialchars($contact['status']); ?></td>
            <td><?php echo htmlspecialchars($contact['dob']); ?></td>
+           <td><?php echo htmlspecialchars($contact['contactType']); ?></td>
            <td> 
              <img src="<?php echo htmlspecialchars('./images/' .$contact['imageName']); ?>"
                alt="<?php echo htmlspecialchars($contact['firstName'] . ' ' . $contact['lastName']); ?>" /> 
