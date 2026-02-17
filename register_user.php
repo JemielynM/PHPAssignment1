@@ -17,7 +17,7 @@
 
     // Check for duplicate userName
     $queryUsers = '
-        SELECT userName, password, emailAddress FROM registrations';
+        SELECT userName, password, emailAddress FROM registration';
 
     $statement = $db->prepare($queryUsers);  
     $statement->execute();
@@ -47,7 +47,7 @@
         }               
     // Add Registration
 
-    $query = 'INSERT INTO registrations (userName, password, emailAddress)
+    $query = 'INSERT INTO registration (userName, password, emailAddress)
         VALUES (:userName, :password, :emailAddress)';
 
     $statement = $db->prepare($query);
