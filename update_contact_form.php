@@ -5,12 +5,19 @@
     $contact_id = filter_input(INPUT_POST, 'contact_id', FILTER_VALIDATE_INT);
     
     $queryContacts = '
-      SELECT contactID, firstName, lastName, emailAddress, phoneNumber, status, dob, imageName FROM contacts WHERE contactID = :contact_id';
+      SELECT contactID, firstName, lastName, emailAddress, phoneNumber, status, dob, typeID, imageName FROM contacts WHERE contactID = :contact_id';
 
     $statement = $db->prepare($queryContacts);  
     $statement->bindValue(':contact_id', $contact_id);
     $statement->execute();
     $contact = $statement->fetch();
+    $statement->closeCursor();
+
+    // Get contact types
+    $query = 'SELECT typeID, contactType FROM types';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $types = $statement->fetchAll();
     $statement->closeCursor();
 
 ?>
@@ -51,6 +58,15 @@
 
                     <label>Date of Birth:</label>
                     <input type="date" name="dob" value="<?php echo $contact['dob']; ?>" /><br />
+
+                    <label>Contact Type:</label>
+                    <select name="type_id"
+                      <?php foreach ($types as $type) : ?>
+                        <option value="<?php echo $type['typeID']; ?>" <?php if ($type['typeID'] == $contact['typeID']) echo 'selected'; ?>>
+                          <?php echo $type['contactType']; ?>
+                        </option>
+                      <?php endforeach; ?>
+                   </select><br /> 
 
                     <?php if (!empty($contact['imageName'])): ?>
                         <label>Current Image:</label>

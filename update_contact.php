@@ -12,14 +12,14 @@
     $phone_number = filter_input(INPUT_POST, 'phoneNumber');
     $status = filter_input(INPUT_POST, 'status');
     $dob = filter_input(INPUT_POST, 'dob');
+    $type_id = filter_input(INPUT_POST, 'type_id', FILTER_VALIDATE_INT);
    
 
     //Get the uploaded image
     $image = $_FILES['file1'];
-
     //Get current contact record to check existing image
     $queryContacts = '
-      SELECT contactID, firstName, lastName, emailAddress, phoneNumber, status, dob, imageName FROM contacts WHERE contactID = :contact_id';
+      SELECT contactID, firstName, lastName, emailAddress, phoneNumber, status, dob, typeID, imageName FROM contacts WHERE contactID = :contact_id';
 
     $statement = $db->prepare($queryContacts);  
     $statement->bindValue(':contact_id', $contact_id);
@@ -51,8 +51,8 @@
     }  
     // Validate input
 
-    if ($first_name === null || $last_name === null || $email_address === null || 
-        $phone_number === null || $dob === null) {
+    if ($first_name == null || $last_name == null || $email_address == null || 
+        $phone_number == null || $dob == null || $type_id == null) {
            $_SESSION["add_error"] = "Invalid contact data. Check all fields and try again.";
            $url = "error.php";
            header("Location: " . $url);
@@ -105,8 +105,9 @@
             phoneNumber = :phoneNumber,
             status = :status,
             dob = :dob,
+            typeID = :typeID,
             imageName = :imageName
-        WHERE contactID = :contact_id
+        WHERE contactID = :contactID
     ';
 
     $statement = $db->prepare($query);
@@ -116,8 +117,9 @@
     $statement->bindValue(':phoneNumber', $phone_number);
     $statement->bindValue(':status', $status);
     $statement->bindValue(':dob', $dob);
+    $statement->bindValue(':typeID', $type_id);
     $statement->bindValue(':imageName', $image_name);
-    $statement->bindValue(':contact_id', $contact_id);
+    $statement->bindValue(':contactID', $contact_id);
     $statement->execute();
     $statement->closeCursor();
 
