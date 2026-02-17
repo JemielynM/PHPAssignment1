@@ -43,42 +43,44 @@
         </tr>
 
         <?php foreach ($contacts as $contact) : ?>
-         <tr>
-           <td><?php echo htmlspecialchars($contact['firstName']); ?></td>
-           <td><?php echo htmlspecialchars($contact['lastName']); ?></td>
-           <td><?php echo htmlspecialchars($contact['emailAddress']); ?></td>
-           <td><?php echo htmlspecialchars($contact['phoneNumber']); ?></td>
-           <td><?php echo htmlspecialchars($contact['status']); ?></td>
-           <td><?php echo htmlspecialchars($contact['dob']); ?></td>
-           <td><?php echo htmlspecialchars($contact['contactType']); ?></td>
-           <td> 
-             <img src="<?php echo htmlspecialchars('./images/' .$contact['imageName']); ?>"
-               alt="<?php echo htmlspecialchars($contact['firstName'] . ' ' . $contact['lastName']); ?>" /> 
-           </td>
-           <td> 
-              <form action="update_contact_form.php" method="post">
+          <tr>
+             <td><?php echo htmlspecialchars($contact['firstName']); ?></td>
+             <td><?php echo htmlspecialchars($contact['lastName']); ?></td>
+             <td><?php echo htmlspecialchars($contact['emailAddress']); ?></td>
+             <td><?php echo htmlspecialchars($contact['phoneNumber']); ?></td>
+             <td><?php echo htmlspecialchars($contact['status']); ?></td>
+             <td><?php echo htmlspecialchars($contact['dob']); ?></td>
+             <td><?php echo htmlspecialchars($contact['contactType']); ?></td>
+             <td> 
+                <img src="<?php echo htmlspecialchars('./images/' .$contact['imageName']); ?>"
+                alt="<?php echo htmlspecialchars($contact['firstName'] . ' ' . $contact['lastName']); ?>" /> 
+             </td>
+             <td> 
+                <form action="update_contact_form.php" method="post">
                   <input type="hidden" name="contact_id" value="<?php echo $contact['contactID']; ?>" />
                   <input type="submit" value="Update" />
-              </form>
-           </td>
-           <td> 
-              <form action="delete_contact.php" method="post">
+                </form>
+             </td>
+             <td> 
+                <form action="delete_contact.php" method="post">
                   <input type="hidden" name="contact_id" value="<?php echo $contact['contactID']; ?>" />
                   <input type="submit" value="Delete" />
-              </form>
-           </td>
-           <td> 
-              <form action="contact_details.php" method="post">
+                </form>
+             </td>
+             <td> 
+                <form action="contact_details.php" method="post">
                   <input type="hidden" name="contact_id" value="<?php echo $contact['contactID']; ?>" />
-                  <input type="submit" value="View Details" />
-              </form>
-           </td>
-         </tr>
+                  <input  type="submit" value="View Details" />
+                </form>
+             </td>
+           </tr>
         <?php endforeach; ?>  
-
-     </table>
+      </table>
 
      <p><a href="add_contact_form.php">Add Contact</a></p>
+
+     <!-- temporary link to the register user form forn testing purposes -->
+     <p><a href="register_user_form.php">Register User - Temporary</a></p>
      
     </main>
 
