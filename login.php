@@ -34,12 +34,12 @@
         $now = new DateTime(); // gets system current date and time
         $last_failed = new DateTime($user['last_failed_login']);
 
-        $interval = $now->getTimestamp() - $last_failed->getTimestamp();
+        $interval = $now->getTimeStamp() - $last_failed->getTimeStamp();
 
-        if ($user['failed_login_attempts'] >= 3 && $interval < 300) {
+        if ($user['failed_attempts'] >= 3 && $interval < 300) {
             $remaining = 300 - $interval;
 
-            $_SESSION['login_error'] = "Accountlocked. Try again in " . ceil($remaining) . " seconds.";
+            $_SESSION['login_error'] = "Account locked. Try again in " . ceil($remaining) . " seconds.";
             header("Location: login_form.php");
             exit;
         }
@@ -50,6 +50,13 @@
             //die();
 
             $_SESSION['isLoggedIn'] = TRUE;
+
+            $query = "UPDATE registration SET failed_attempts = 0, last_failed_login = NULL WHERE userName = :userName";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':userName', $user_name);
+            $statement->execute();
+            $statement->closeCursor();
+
             $_SESSION['userName'] = $user['userName'];
 
             $_SESSION['user_id'] = $user['userID'];
@@ -59,6 +66,14 @@
         else {
             //echo "Inside else block";
             //die();
+
+            // Increment failed attempts
+            $query = "UPDATE registration SET failed_attempts = failed_attempts + 1, last_failed_login = NOW() WHERE userName = :userName";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':userName', $user_name);
+            $statement->execute();
+            $statement->closeCursor();
+
             $_SESSION['login_error'] = "Incorrect password.";
             header("Location: login_form.php");
             exit;
