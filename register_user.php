@@ -60,22 +60,32 @@
     $statement->execute();
     $statement->closeCursor();
 
-    $_SESSION['isLoggedIn'] = TRUE;
+    $_SESSION["isLoggedIn"] = 1;
     $_SESSION["userName"] = $user_name;
 
-    // set up Email Variables
+    // set up email variables
     $to_address = $email_address;
     $to_name = $user_name;
-    $from_address = 'Your_USERNAME@GMAIL.com';
+    $from_address = 'Your_USERNAME@gmail.com';
     $from_name = 'PHPAssignment1';
     $subject = 'PHPAssignment1 - Registration Complete';
-    $body = <p>Thanks for registering with our site.</p>;
-            '<p>Sincerely,</p>';
+    $body = '<p>Thanks for registering with our site.</p>' .
+            '<p>Sincerely,</p>' .
             '<p>PHPAssignment1 Team</p>';
     $is_body_html = true;
 
+   
+
     // Send Email   
-     
+    try {
+        send_mail($to_address, $to_name, $from_address, $from_name, $subject, $body, $is_body_html);   
+    } 
+    catch (Exception $ex) {
+        $_SESSION['add_error'] = $ex->getMessage();
+         header("Location: error.php");
+         die();
+        
+    }
 
     $url = "register_confirmation.php";
     header("Location: $url");
