@@ -1,13 +1,12 @@
 <?php
   session_start();
-
  ?>
 
 <!DOCTYPE html>
 <html>
 
   <head>
-     <title>Contact Manager - Registration Confirmation</title>
+     <title>Contact Manager - Login Confirmation</title>
      <link rel="stylesheet" type="text/css" href="css/contact.css" />
   </head>
 
@@ -15,9 +14,9 @@
         <?php include("header.php") ?>
 
              <main>
-                <h2>Registration Confirmation</h2>
+                <h2>Login Confirmation</h2>
                 <p>
-                 Thank you, <?php echo $_SESSION["userName"]; ?>, for registering.
+                 Thank you, <?php echo $_SESSION["userName"]; ?>, for logging in.
             
                 </p>
 

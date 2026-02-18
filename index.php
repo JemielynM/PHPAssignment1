@@ -1,4 +1,10 @@
 <?php
+  session_start();
+
+  if (!isset($_SESSION['isLoggedIn'])) {
+    header("Location: login_form.php");
+    die();
+  }
 
  require("database.php");
 
@@ -23,27 +29,27 @@
   </head>
 
   <body>
-     <?php include("header.php") ?>
+    <?php include("header.php") ?>
 
     <main>
-     <h2>Contact List</h2>
-     <table>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email Address</th>
-          <th>Phone Number</th>
-          <th>Status</th>
-          <th>Date of Birth</th>
-          <th>Contact Type</th>
-          <th>Photo</th>
-          <th>&nbsp;</th> <!-- for update -->
-          <th>&nbsp;</th> <!-- for delete -->
-          <th>&nbsp;</th> <!-- for view details -->
-        </tr>
+           <h2>Contact List(<?php echo "Logged In User: " . $_SESSION['userName']; ?>)</h2>
+           <table>
+             <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Status</th>
+                <th>Date of Birth</th>
+                <th>Contact Type</th>
+                <th>Photo</th>
+                <th>&nbsp;</th> <!-- for update -->
+                <th>&nbsp;</th> <!-- for delete -->
+                <th>&nbsp;</th> <!-- for view details -->
+             </tr>
 
-        <?php foreach ($contacts as $contact) : ?>
-          <tr>
+          <?php foreach ($contacts as $contact) : ?>
+             <tr>
              <td><?php echo htmlspecialchars($contact['firstName']); ?></td>
              <td><?php echo htmlspecialchars($contact['lastName']); ?></td>
              <td><?php echo htmlspecialchars($contact['emailAddress']); ?></td>
@@ -74,15 +80,21 @@
                 </form>
              </td>
            </tr>
-        <?php endforeach; ?>  
-      </table>
+           <?php endforeach; ?>  
 
-     <p><a href="add_contact_form.php">Add Contact</a></p>
+         </table>
 
-     <!-- temporary link to the register user form forn testing purposes -->
-     <p><a href="register_user_form.php">Register User - Temporary</a></p>
+         <p><a href="add_contact_form.php">Add Contact</a></p>
+
+          <!-- temporary link to the register user form forn testing purposes -->
+          <!--<p><a href="register_user_form.php">Register User - Temporary</a></p> -->
      
-    </main>
+          <!-- temporary link to the login form forn testing purposes -->
+          <!--<p><a href="login_form.php">Login - Temporary</a></p> -->
+
+          <p><a href="logout.php">Logout</a></p>
+
+        </main>
 
     <?php include("footer.php") ?>
 

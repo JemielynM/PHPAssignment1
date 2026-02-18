@@ -8,7 +8,7 @@
    
 
 
-    $hash = password_hash($password, PASSWORD_DEFAULT); 
+    $hash = password_hash($user_password, PASSWORD_DEFAULT); 
 
     $email_address = filter_input(INPUT_POST, 'email_address');
     
