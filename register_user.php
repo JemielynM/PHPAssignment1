@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    require_once('message.php');
+
     $user_name = filter_input(INPUT_POST, 'user_name');
     $user_password = filter_input(INPUT_POST, 'password');
 
@@ -58,8 +60,23 @@
     $statement->execute();
     $statement->closeCursor();
 
-
+    $_SESSION['isLoggedIn'] = TRUE;
     $_SESSION["userName"] = $user_name;
+
+    // set up Email Variables
+    $to_address = $email_address;
+    $to_name = $user_name;
+    $from_address = 'Your_USERNAME@GMAIL.com';
+    $from_name = 'PHPAssignment1';
+    $subject = 'PHPAssignment1 - Registration Complete';
+    $body = <p>Thanks for registering with our site.</p>;
+            '<p>Sincerely,</p>';
+            '<p>PHPAssignment1 Team</p>';
+    $is_body_html = true;
+
+    // Send Email   
+     
+
     $url = "register_confirmation.php";
     header("Location: $url");
     die();
