@@ -1,10 +1,9 @@
 <?php
-    require './PHPmailer/PHPMailerAutoload.php';
+    require './PHPMailer/PHPMailerAutoload.php';
 
     
     function send_mail($to_address, $to_name, $from_address, $from_name, 
-        $subject, $body, $is_body_html = false) 
-    {
+        $subject, $body, $is_body_html = false) {  
 
         if (!valid_email($to_address)) {
             throw new Exception('This To address is invalid: ' . htmlspecialchars($to_address));
@@ -24,6 +23,8 @@
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
         $mail->SMTPAuth = true;
+
+
         $mail->Username = 'YOUR_USERNAME@gmail.com';
         $mail->Password = 'YOUR_APP_PASSWORD';
 
@@ -32,11 +33,16 @@
         $mail->addAddress($to_address, $to_name);
       
         $mail->Subject = $subject;
-        $mail->Body = $body;
-        $mail->AltBody = strip_tags($body);
+        
        
         if ($is_body_html) {
             $mail->isHTML(true);
+            $mail->Body = $body;
+            $mail->AltBody = strip_tags($body);
+        }
+        else {
+            $mail->Body = $body;
+            $mail->AltBody = $body;
         }
         if (!$mail->send()) {
             throw new Exception('Error sending email: ' . htmlspecialchars($mail->ErrorInfo));
@@ -45,14 +51,8 @@
     }
 
     function valid_email($email) {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
-            return false;
-        } else {
-            return true;
+         return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
         }
-    }
-        
-
-
+    
 ?>   
         

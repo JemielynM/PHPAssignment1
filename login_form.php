@@ -44,6 +44,7 @@
            </form>
            
            <p><a href="register_user_form.php">Register</a></p>
+           <p><a href="forgot_password.php">Forgot Password?</a></p>
      
         </main>
 
